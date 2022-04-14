@@ -1,4 +1,6 @@
+//const { expect } = require("chai");
 const faker = require("faker");
+//const { it } = require("faker/lib/locales");
 let bookId;
 let title;
 
@@ -25,8 +27,6 @@ context("Books Api", () => {
         expect(response.status).to.eq(200);
         // Verify that random title name that was generate before this test is the one that we received in a response body
         expect(response.body.title).to.eq(title);
-        // Verify that body contains right title and author
-        cy.log(JSON.stringify(response.body));
       });
     });
   });
@@ -37,8 +37,6 @@ context("Books Api", () => {
     .then((response) => {
       // Verify status code === 200
       expect(response.status).to.eq(200);
-      // Verify that body contains right title and author
-      cy.log(JSON.stringify(response.body));
     });
   });
   
@@ -54,16 +52,22 @@ context("Books Api", () => {
      expect(response.body.title).to.eq("Xfinity");
      // Verify status code === 200
      expect(response.status).to.eq(200);
-     // Verify that body contains right title and author
-     cy.log(JSON.stringify(response.body));
    });
  });
 });
 
-  it("Create book and then DELETE a book", () => {
+  it("DELETE a book", () => {
       // Send POST new book api
      cy.request("DELETE", bookId).then((response) => {
-       expect(response.status).to.eq(200);
+       expect(response.status).to.eq(200)})
      })
-  });
-});
+  it("Verify that book was deleted", () => {
+        cy.request({
+          method : 'GET',
+          url: bookId,
+          failOnStatusCode: false,
+        }).then((response) => {
+          expect(response.status).to.eq(404)
+        })
+      })
+     })
