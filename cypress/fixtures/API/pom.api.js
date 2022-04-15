@@ -1,5 +1,5 @@
-const faker = require('faker');
-const URL = require('./api.client')
+import faker from 'faker';
+import URL from './api.client';
 
 class API {
     randomTitle = 'Book ' + faker.datatype.number();
@@ -27,4 +27,4 @@ class API {
     };
 };
 
-module.exports = new API();
+export default new API();

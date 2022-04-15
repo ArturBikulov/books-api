@@ -1,10 +1,11 @@
-const ApiPage = require('../../fixtures/API/pom.api')
-var bookId;
+import ApiPage from '../../fixtures/API/pom.api'
+let bookId;
 
 context('Books', () => {
   beforeEach(() => {
     ApiPage.newTitle
   });
+
   //POST request
   it('POST the Book', () => {
     //POST the book
@@ -19,6 +20,7 @@ context('Books', () => {
           });
       });
   });
+
   // Get requst to get all the books
   it('GET all the books', () => {
     ApiPage.getAllBooks
@@ -26,6 +28,7 @@ context('Books', () => {
         expect(response.status).to.eq(200);
       });
   });
+  // Update request
   it('Update the Book', () => {
         ApiPage.putRequest(bookId)
           .then((response) => {
